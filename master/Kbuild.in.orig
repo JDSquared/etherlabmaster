@@ -91,7 +91,7 @@ CFLAGS_rtdm.o := -I@XENOMAI_DIR@/include
 endif
 
 ifeq (@ENABLE_RTAI@, 1)
-CFLAGS_rtdm.o := @RTAI_EXTRA_CFLAGS@
+CFLAGS_rtdm.o := -I@RTAI_DIR@/include
 endif
 
 ec_master-objs += rtdm-ioctl.o

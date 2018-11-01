@@ -521,37 +521,36 @@ AC_SUBST(ENABLE_CCAT,[$enableccat])
 # RTAI path (optional)
 #------------------------------------------------------------------------------
 
-AC_ARG_WITH([rtai-config],
+AC_ARG_WITH([rtai-dir],
     AC_HELP_STRING(
-        [--with-rtai-config=<FILE>],
-        [RTAI configuration utility path, for RTDM interface and RTAI examples]
+        [--with-rtai-dir=<DIR>],
+        [RTAI path, for RTDM interface and RTAI examples]
     ),
     [
-        rtaiconfig=[$withval]
+        rtaidir=[$withval]
         rtai=1
     ],
     [
-        rtaiconfig=""
+        rtaidir=""
         rtai=0
     ]
 )
 
-AC_MSG_CHECKING([for RTAI configuration utility])
+AC_MSG_CHECKING([for RTAI path])
 
-if test -z "${rtaiconfig}"; then
+if test -z "${rtaidir}"; then
     AC_MSG_RESULT([not specified.])
-elif ! test -x ${rtaiconfig}; then
-    AC_MSG_RESULT([not found])
-    AC_MSG_ERROR(["${rtaiconfig}" not executable])
 else
-    AC_MSG_RESULT([$rtaiconfig])
+    if test \! -r ${rtaidir}/include/rtai.h; then
+        AC_MSG_ERROR([no RTAI installation found in ${rtaidir}!])
+    fi
+    AC_MSG_RESULT([$rtaidir])
 
-    rtai_extra_cflags="$(${rtaiconfig} --module-cflags)"
-    rtai_lxrt_cflags=`${rtaiconfig} --lxrt-cflags`
-    rtai_lxrt_ldflags=`${rtaiconfig} --lxrt-ldflags`
+    rtai_lxrt_cflags=`$rtaidir/bin/rtai-config --lxrt-cflags`
+    rtai_lxrt_ldflags=`$rtaidir/bin/rtai-config --lxrt-ldflags`
 fi
 
-AC_SUBST(RTAI_EXTRA_CFLAGS,[$rtai_extra_cflags])
+AC_SUBST(RTAI_DIR,[$rtaidir])
 AM_CONDITIONAL(ENABLE_RTAI, test "x$rtai" = "x1")
 AC_SUBST(ENABLE_RTAI,[$rtai])
 
