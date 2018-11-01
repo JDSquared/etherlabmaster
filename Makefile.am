@@ -28,8 +28,6 @@
 #------------------------------------------------------------------------------
 
 ACLOCAL_AMFLAGS = -I m4
-AM_CPPFLAGS  = -I "$(LINUX_OBJ_DIR)"
-AM_CFLAGS  = -I "$(LINUX_OBJ_DIR)"
 
 SUBDIRS = \
 	include \
@@ -38,6 +36,7 @@ SUBDIRS = \
 if ENABLE_KERNEL
 SUBDIRS += devices
 SUBDIRS += master
+SUBDIRS += ${LINUX_OBJ_DIR}
 endif
 
 if BUILD_TOOL
