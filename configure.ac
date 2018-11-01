@@ -112,23 +112,47 @@ AC_ARG_WITH([linux-dir],
     ]
 )
 
+AC_ARG_WITH([linux-obj-dir],
+    AC_HELP_STRING(
+        [--with-linux-obj-dir=<DIR>],
+        [Split Linux kernel objects @<:@running kernel@:>@]
+    ),
+    [
+        objdir=[$withval]
+    ],
+    [
+
+    ]
+)
+
 AC_MSG_CHECKING([for Linux kernel sources])
 
 if test \! -r ${sourcedir}/.config; then
-    echo
-    AC_MSG_ERROR([No configured Linux kernel sources in $sourcedir])
+    if test \! -r ${sourcedir}/.config; then
+        echo
+        AC_MSG_ERROR([No configured Linux kernel sources in $sourcedir])
+    fi
 fi
 
 # Try to get kernel release string
 if test -r ${sourcedir}/include/config/kernel.release; then
     kernelrelease=`cat $sourcedir/include/config/kernel.release`
+elif test -r ${objdir}/include/config/kernel.release; then
+    kernelrelease=`cat $objdir/include/config/kernel.release`
 elif test -r ${sourcedir}/.kernelrelease; then
     kernelrelease=`cat $sourcedir/.kernelrelease`
+elif test -r ${objdir}/.kernelrelease; then
+    kernelrelease=`cat $objdir/.kernelrelease`
 elif test -r ${sourcedir}/include/linux/utsrelease.h; then
     hdr=${sourcedir}/include/linux/utsrelease.h
+elif test -r ${objdir}/include/linux/utsrelease.h; then
+    hdr=${objdir}/include/linux/utsrelease.h
     kernelrelease=`grep UTS_RELEASE $hdr | cut -d " " -f 3- | tr -d \"`
 elif test -r ${sourcedir}/include/linux/version.h; then
     hdr=${sourcedir}/include/linux/version.h
+    kernelrelease=`grep UTS_RELEASE $hdr | cut -d " " -f 3- | tr -d \"`
+elif test -r ${objdir}/include/linux/version.h; then
+    hdr=${objdir}/include/linux/version.h
     kernelrelease=`grep UTS_RELEASE $hdr | cut -d " " -f 3- | tr -d \"`
 fi
 
