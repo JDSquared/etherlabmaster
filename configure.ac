@@ -128,7 +128,7 @@ AC_ARG_WITH([linux-obj-dir],
 AC_MSG_CHECKING([for Linux kernel sources])
 
 if test \! -r ${sourcedir}/.config; then
-    if test \! -r ${sourcedir}/.config; then
+    if test \! -r ${objdir}/.config; then
         echo
         AC_MSG_ERROR([No configured Linux kernel sources in $sourcedir])
     fi
