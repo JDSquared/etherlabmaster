@@ -28,6 +28,7 @@
 #------------------------------------------------------------------------------
 
 ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -I "$(LINUX_OBJ_DIR)"
 
 SUBDIRS = \
 	include \

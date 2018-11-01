@@ -171,6 +171,7 @@ fi
 linuxversion=`echo $kernelrelease | grep -oE "$regex"`
 
 AC_SUBST(LINUX_SOURCE_DIR,[$sourcedir])
+AC_SUBST(LINUX_OBJ_DIR,[$objdir])
 AC_MSG_RESULT([$LINUX_SOURCE_DIR (Kernel $linuxversion)])
 
 fi
