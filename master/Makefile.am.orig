@@ -2,7 +2,7 @@
 #
 #  $Id$
 #
-#  Copyright (C) 2006-2008  Florian Pose, Ingenieurgemeinschaft IgH
+#  Copyright (C) 2006-2012  Florian Pose, Ingenieurgemeinschaft IgH
 #
 #  This file is part of the IgH EtherCAT Master.
 #
@@ -27,58 +27,60 @@
 #
 #------------------------------------------------------------------------------
 
-ACLOCAL_AMFLAGS = -I m4
-
-SUBDIRS = \
-	include \
-	script
-
-if ENABLE_KERNEL
-SUBDIRS += devices
-SUBDIRS += master
-endif
-
-if BUILD_TOOL
-SUBDIRS += tool
-endif
-
-if ENABLE_USERLIB
-SUBDIRS += lib
-endif
-
-if ENABLE_TTY
-SUBDIRS += tty
-endif
-
-# userspace example depends on lib/
-SUBDIRS += examples
-
-DIST_SUBDIRS = \
-	devices \
-	examples \
-	include \
-	lib \
-	m4 \
-	master \
-	script \
-	tool \
-	tty
-
+# using HEADERS to enable tags target
 noinst_HEADERS = \
-	globals.h
+	cdev.c cdev.h \
+	coe_emerg_ring.c coe_emerg_ring.h \
+	datagram.c datagram.h \
+	datagram_pair.c datagram_pair.h \
+	debug.c debug.h \
+	device.c device.h \
+	domain.c domain.h \
+	doxygen.c \
+	eoe_request.c eoe_request.h \
+	ethernet.c ethernet.h \
+	fmmu_config.c fmmu_config.h \
+	foe.h \
+	foe_request.c foe_request.h \
+	fsm_change.c fsm_change.h \
+	fsm_coe.c fsm_coe.h \
+	fsm_eoe.c fsm_eoe.h \
+	fsm_foe.c fsm_foe.h \
+	fsm_master.c fsm_master.h \
+	fsm_pdo.c fsm_pdo.h \
+	fsm_pdo_entry.c fsm_pdo_entry.h \
+	fsm_sii.c fsm_sii.h \
+	fsm_slave.c fsm_slave.h \
+	fsm_slave_config.c fsm_slave_config.h \
+	fsm_slave_scan.c fsm_slave_scan.h \
+	fsm_soe.c fsm_soe.h \
+	globals.h \
+	ioctl.c ioctl.h \
+	mailbox.c mailbox.h \
+	master.c master.h \
+	module.c \
+	pdo.c pdo.h \
+	pdo_entry.c pdo_entry.h \
+	pdo_list.c pdo_list.h \
+	reg_request.c reg_request.h \
+	rtdm-ioctl.c \
+	rtdm.c rtdm.h \
+	sdo.c sdo.h \
+	sdo_entry.c sdo_entry.h \
+	sdo_request.c sdo_request.h \
+	slave.c slave.h \
+	slave_config.c slave_config.h \
+	soe_errors.c \
+	soe_request.c soe_request.h \
+	sync.c sync.h \
+	sync_config.c sync_config.h \
+	voe_handler.c voe_handler.h
 
 EXTRA_DIST = \
-	Doxyfile.in \
-	FEATURES \
-	Kbuild.in \
-	README.EoE \
-	ethercat.spec \
-	ethercat.spec.in
+	Kbuild.in
 
 BUILT_SOURCES = \
-	Doxyfile \
-	Kbuild \
-	ethercat.spec
+	Kbuild
 
 modules:
 	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" modules
@@ -88,47 +90,6 @@ modules_install:
 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
 
 clean-local:
-	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-
-mydist:
-	hg log --style=changelog $(srcdir) > ChangeLog
-	@REV=`hg id -i $(srcdir)` && \
-		$(MAKE) dist-bzip2 distdir=$(PACKAGE)-$(VERSION)-$${REV}
-
-dist-hook:
-	if which hg >/dev/null 2>&1; then \
-		hg id -i $(srcdir) 2>/dev/null >$(distdir)/revision; \
-	fi
-
-mrproper: clean cleandoc
-	rm -rf \
-		*~ \
-		ChangeLog \
-		Doxyfile \
-		Kbuild \
-		Makefile \
-		Makefile.in \
-		TAGS \
-		aclocal.m4 \
-		autoconf \
-		autom4te.cache \
-		config.h \
-		config.h.in \
-		config.log \
-		config.status \
-		configure \
-		configure.in \
-		libtool \
-		stamp-h1 \
-		ethercat.spec \
-		script/init.d/ethercat \
-		m4/*.m4 \
-		`find -path ./documentation -prune -o "(" -name Makefile -o -name Makefile.in -o -name Kbuild -o -name .deps -o -name Module.symvers -o -name .tmp_versions ")" -print`
-
-doc:
-	doxygen Doxyfile
-
-cleandoc:
-	@rm -rf doxygen-output
+	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
 
 #------------------------------------------------------------------------------
