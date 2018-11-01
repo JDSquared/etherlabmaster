@@ -36,7 +36,6 @@ SUBDIRS = \
 if ENABLE_KERNEL
 SUBDIRS += devices
 SUBDIRS += master
-SUBDIRS += ${LINUX_OBJ_DIR}
 endif
 
 if BUILD_TOOL
