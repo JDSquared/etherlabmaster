@@ -81,14 +81,14 @@ BUILT_SOURCES = \
 	ethercat.spec
 
 modules:
-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" O="@abs_srcdir" modules
+	$(MAKE) -C "$(LINUX_OBJ_DIR)" M="@abs_srcdir@" modules
 
 modules_install:
-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" \
+	$(MAKE) -C "$(LINUX_OBJ_DIR)" M="@abs_srcdir@" \
 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
 
 clean-local:
-	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+	$(MAKE) -i -C "$(LINUX_OBJ_DIR)" M="@abs_srcdir@" clean
 
 mydist:
 	hg log --style=changelog $(srcdir) > ChangeLog
