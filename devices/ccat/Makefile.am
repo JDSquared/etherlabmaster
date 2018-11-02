@@ -37,13 +37,13 @@ BUILT_SOURCES = \
 	Kbuild
 
 modules:
-	$(MAKE) modules
+	$(MAKE) M="@abs_srcdir@" modules
 
 modules_install
-	$(MAKE) \
+	$(MAKE) M="@abs_srcdir@" \
 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
 
 clean-local:
-	$(MAKE) clean
+	$(MAKE) M="@abs_srcdir@" clean
 
 #------------------------------------------------------------------------------
