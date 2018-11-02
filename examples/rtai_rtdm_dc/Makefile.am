@@ -34,7 +34,9 @@ ec_rtai_rtdm_dc_example_SOURCES = main.c
 ec_rtai_rtdm_dc_example_CFLAGS = \
 	-Wall \
 	-I$(top_srcdir)/include \
-	$(RTAI_LXRT_CFLAGS)
+	$(RTAI_LXRT_CFLAGS) \
+	-I$(LINUX_SOURCE_DIR) \
+	-I$(LINUX_OBJ_DIR)
 
 ec_rtai_rtdm_dc_example_LDFLAGS = \
 	$(RTAI_LXRT_LDFLAGS) -llxrt -lrtdm \

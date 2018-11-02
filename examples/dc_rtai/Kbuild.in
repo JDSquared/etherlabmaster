@@ -35,7 +35,7 @@ obj-m := ec_dc_rtai_sample.o
 
 ec_dc_rtai_sample-objs := dc_rtai_sample.o
 
-EXTRA_CFLAGS := @RTAI_EXTRA_CFLAGS@
+EXTRA_CFLAGS := @RTAI_EXTRA_CFLAGS@ -I$(LINUX_SOURCE_DIR) -I$(LINUX_OBJ_DIR)
 
 KBUILD_EXTRA_SYMBOLS := \
 	@abs_top_builddir@/$(LINUX_SYMVERS) \

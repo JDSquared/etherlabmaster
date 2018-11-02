@@ -133,6 +133,7 @@ ethercat_CXXFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/master \
 	-I$(LINUX_OBJ_DIR) \
+	-I$(LINUX_SOURCE_DIR) \
 	-Wall -DREV=$(REV) \
 	-fno-strict-aliasing
 

@@ -37,7 +37,7 @@ ec_tty_example-objs := \
 	serial.o \
 	tty.o
 
-CFLAGS_tty.o := -I$(src)
+CFLAGS_tty.o := -I$(src) -I$(LINUX_SOURCE_DIR) -I$(LINUX_OBJ_DIR)
 
 KBUILD_EXTRA_SYMBOLS := \
 	@abs_top_builddir@/$(LINUX_SYMVERS) \

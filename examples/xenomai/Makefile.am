@@ -35,7 +35,9 @@ ec_xenomai_example_CFLAGS = \
 	-Wall \
 	-I$(top_srcdir)/include \
 	$(XENOMAI_NATIVE_CFLAGS) \
-	$(XENOMAI_RTDM_CFLAGS)
+	$(XENOMAI_RTDM_CFLAGS) \
+	-I$(LINUX_SOURCE_DIR) \
+	-I$(LINUX_OBJ_DIR)
 
 ec_xenomai_example_LDFLAGS = \
 	-L$(top_builddir)/lib/.libs -lethercat_rtdm \

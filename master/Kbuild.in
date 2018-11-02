@@ -107,4 +107,6 @@ REV := $(shell if test -s $(src)/../revision; then \
 
 CFLAGS_module.o := -DREV=$(REV)
 
+CFLAGS_ec-master.o := -DREV=$(REV) -I$(LINUX_SOURCE_DIR) -I$(LINUX_OBJ_DIR)
+
 #------------------------------------------------------------------------------

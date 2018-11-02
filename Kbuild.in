@@ -35,5 +35,5 @@ ifeq (@ENABLE_TTY@,1)
 	obj-m += tty/
 endif
 
-KBUILD_CFLAGS += -I@LINUX_SOURCE_DIR@
+KBUILD_CFLAGS += -I$(LINUX_OBJ_DIR) -I$(LINUX_SOURCE_DIR)
 #------------------------------------------------------------------------------
