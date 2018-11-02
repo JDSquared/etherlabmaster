@@ -167,6 +167,8 @@ else
     regex="^[[0-9]]+\.[[0-9]]+\.[[0-9]]+"
 fi
 
+mkdir .build
+
 # Extract numbers from kernel release
 linuxversion=`echo $kernelrelease | grep -oE "$regex"`
 
